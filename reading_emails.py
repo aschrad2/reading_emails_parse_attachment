@@ -55,8 +55,6 @@ for i in range(messages, messages-N, -1):
                     if "attachment" in content_disposition:
                         # download attachment
                         filename = part.get_filename()
-                        pass
-
                         if filename:
                             if not os.path.isdir(subject):
                                 # make a folder for this email (named after the subject)
