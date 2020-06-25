@@ -5,11 +5,11 @@ import webbrowser
 import os
 
 # account credentials
-username = "austinschradertest@outlook.com"
-password = "royalb123"
+username = "austin.schrader@flanderscapital.com"
+password = "1029Welcome@"
 
 # number of top emails to fetch
-N = 1
+N = 13
 
 # create an IMAP4 class with SSL, use your email provider's IMAP server
 imap = imaplib.IMAP4_SSL("imap.outlook.com")
@@ -35,7 +35,9 @@ for i in range(messages, messages-N, -1):
             subject = decode_header(msg["Subject"])[0][0]
             if isinstance(subject, bytes):
                 # if it's a bytes, decode to str
-                subject = subject.decode()
+                subject = subject.decode('cp1252')
+                subject = subject.replace("/", "-")
+                #string.replace("geeks", "Geeks")) 
             # email sender
             from_ = msg.get("From")
 
@@ -48,19 +50,25 @@ for i in range(messages, messages-N, -1):
                     content_disposition = str(part.get("Content-Disposition"))
                     try:
                         # get the email body
-                        body = part.get_payload(decode=True).decode()
+                        body = part.get_payload(decode=True).decode('cp1252')
                     except:
                         pass
 
                     if "attachment" in content_disposition:
                         # download attachment
                         filename = part.get_filename()
+                        #print("hello")
                         if filename:
+                            print()
                             if not os.path.isdir(subject):
                                 # make a folder for this email (named after the subject)
                                 pass
                             # name the attachment pdf as subject + its current filename
-                            filepath = os.path.join(subject + " " + filename)
+                            filepath = os.path.join(filename)
+# =============================================================================
+#                             # doesnt work
+#                             filepath = os.path.join(subject + " " + filename)
+# =============================================================================
                             # download attachment and save it
                             open(filepath, "wb").write(part.get_payload(decode=True))
 
