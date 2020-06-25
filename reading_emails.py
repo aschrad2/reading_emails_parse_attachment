@@ -19,19 +19,9 @@ imap.login(username, password)
 # select a mailbox (in this case, the inbox mailbox)
 # use imap.list() to get the list of mailboxes
 status, messages = imap.select("Inbox")
-#print(messages)
 
 # total number of emails
 messages = int(messages[0])
-# =============================================================================
-# print(messages)
-# =============================================================================
-#print("hello")
-
-# =============================================================================
-# print(messages-4)
-# print(messages-N-1)
-# =============================================================================
 
 for i in range(messages, messages-N, -1):
     # fetch the email message by ID
@@ -48,10 +38,7 @@ for i in range(messages, messages-N, -1):
                 subject = subject.decode()
             # email sender
             from_ = msg.get("From")
-# =============================================================================
-#             print("Subject:", subject)
-#             print("From:", from_)
-# =============================================================================
+
             # if the email message is multipart
             if msg.is_multipart():
                 # iterate over email parts
@@ -64,19 +51,12 @@ for i in range(messages, messages-N, -1):
                         body = part.get_payload(decode=True).decode()
                     except:
                         pass
-                    if content_type == "text/plain" and "attachment" not in content_disposition:
-                        # print text/plain emails and skip attachments
-                        pass
-# =============================================================================
-#                         print(body)
-# =============================================================================
-                    elif "attachment" in content_disposition:
+
+                    if "attachment" in content_disposition:
                         # download attachment
                         filename = part.get_filename()
                         pass
-# =============================================================================
-#                         print(filename)
-# =============================================================================
+
                         if filename:
                             if not os.path.isdir(subject):
                                 # make a folder for this email (named after the subject)
@@ -104,9 +84,6 @@ for i in range(messages, messages-N, -1):
                 # open in the default browser
                 #webbrowser.open(filepath)
 
-# =============================================================================
-#             print("="*100)
-# =============================================================================
 
 # close the connection and logout
 imap.close()
