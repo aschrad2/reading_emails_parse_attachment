@@ -9,7 +9,7 @@ username = "austinschradertest@outlook.com"
 password = "royalb123"
 
 # number of top emails to fetch
-N = 7
+N = 1
 
 # create an IMAP4 class with SSL, use your email provider's IMAP server
 imap = imaplib.IMAP4_SSL("imap.outlook.com")
@@ -59,7 +59,8 @@ for i in range(messages, messages-N, -1):
                             if not os.path.isdir(subject):
                                 # make a folder for this email (named after the subject)
                                 os.mkdir(subject)
-                            filepath = os.path.join(subject, filename)
+                            # name the attachment pdf as subject + its current filename
+                            filepath = os.path.join(subject, subject + " " + filename)
                             # download attachment and save it
                             open(filepath, "wb").write(part.get_payload(decode=True))
             else:
