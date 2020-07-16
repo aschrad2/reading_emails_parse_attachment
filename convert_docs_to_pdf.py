@@ -9,6 +9,9 @@ import os
 import win32com.client
 from openpyxl import Workbook
 import csv
+import img2pdf 
+from PIL import Image 
+import fitz
 
 wdFormatPDF = 17
 
@@ -57,9 +60,9 @@ for root, dirs, files in os.walk(r'C:\\Users\\austin.schrader\\Desktop\\My_Deskt
                 app.Interactive = False
                 app.Visible = False
                 app.DisplayAlerts = False
-                Workbook = app.Workbooks.Open(in_file)
-                Workbook.ActiveSheet.ExportAsFixedFormat(0, output_file)
-                Workbook.Close()
+                Workbook2 = app.Workbooks.Open(in_file)
+                Workbook2.ActiveSheet.ExportAsFixedFormat(0, output_file)
+                Workbook2.Close()
                 app.Quit()
                 os.remove(os.path.join(root, f))
                 pass
@@ -76,19 +79,34 @@ for root, dirs, files in os.walk(r'C:\\Users\\austin.schrader\\Desktop\\My_Deskt
                 app.Interactive = False
                 app.Visible = False
                 app.DisplayAlerts = False
-                Workbook = app.Workbooks.Open(in_file)
-                Workbook.ActiveSheet.ExportAsFixedFormat(0, output_file)
-                Workbook.Close()
+                Workbook3 = app.Workbooks.Open(in_file)
+                Workbook3.ActiveSheet.ExportAsFixedFormat(0, output_file)
+                Workbook3.Close()
                 app.Quit()
                 os.remove(os.path.join(root, f))
                 pass
             except:
                 print('could not open')
-        elif f.endswith("csv"):
-            import pypandoc
-            
-            output = pypandoc.convert_file('somefile.csv', 'pdf', outputfile="somefile.pdf")
-            assert output == ""
-            
+        elif f.endswith(".png"):
+            try:
+                imglist = []
+                imglist.append(os.path.join(root, f))
+                output_file = os.path.join(root,f[:-4])
+                #print(imglist)
+                doc = fitz.open()
+                for f in imglist:
+                    img = fitz.open(f)
+                    rect = img[0].rect
+                    pdfbytes = img.convertToPDF()
+                    img.close()
+                    imgPDF = fitz.open("pdf", pdfbytes)
+                    page = doc.newPage(width = rect.width, height = rect.height)
+                    page.showPDFpage(rect, imgPDF, 0)
+                doc.save(output_file +".pdf")
+                os.remove(os.path.join(root, f))
+                
+                pass
+            except:
+                pass
         else:
             pass
