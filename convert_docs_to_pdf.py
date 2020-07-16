@@ -7,13 +7,25 @@ Created on Thu Jul 16 09:08:48 2020
 
 import os
 import win32com.client
+from openpyxl import Workbook
+import csv
 
 wdFormatPDF = 17
 
 for root, dirs, files in os.walk(r'C:\\Users\\austin.schrader\\Desktop\\My_Desktop_Documents\\Python_Tools\\reading_emails_parse_attachment\\Attachments'):
     for f in files:
 
-        if  f.endswith(".doc")  or f.endswith(".odt") or f.endswith(".rtf"):
+        if f.endswith(".csv"):
+            
+            in_file = os.path.join(root, f)
+            wb = Workbook()
+            ws = wb.active
+            with open(in_file, 'r') as f:
+                for row in csv.reader(f):
+                    ws.append(row)
+            #output_file = os.path.join(root,f[:-4])
+            wb.save(output_file)
+        elif  f.endswith(".doc")  or f.endswith(".odt") or f.endswith(".rtf"):
             try:
                 print(f)
                 in_file=os.path.join(root,f)
