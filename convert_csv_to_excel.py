@@ -5,18 +5,20 @@ Created on Thu Jul 16 11:51:53 2020
 @author: Austin.Schrader
 """
 
-from openpyxl import Workbook
-import csv
-
-input_file = r'C:\Users\austin.schrader\Desktop\My_Desktop_Documents\Python_Tools\reading_emails_parse_attachment\Attachments\Billing_Report_2020-07-10.csv'
-output_file = r'C:\Users\austin.schrader\Desktop\My_Desktop_Documents\Python_Tools\reading_emails_parse_attachment\Attachments\Billing_Report_2020-07-10.xlsx'
-
-wb = Workbook()
-ws = wb.active
-with open(input_file, 'r') as f:
-    for row in csv.reader(f):
-        ws.append(row)
-wb.save(output_file)
+# =============================================================================
+# from openpyxl import Workbook
+# import csv
+# 
+# input_file = r'C:\Users\austin.schrader\Desktop\My_Desktop_Documents\Python_Tools\reading_emails_parse_attachment\Attachments\Billing_Report_2020-07-10.csv'
+# output_file = r'C:\Users\austin.schrader\Desktop\My_Desktop_Documents\Python_Tools\reading_emails_parse_attachment\Attachments\Billing_Report_2020-07-10.xlsx'
+# 
+# wb = Workbook()
+# ws = wb.active
+# with open(input_file, 'r') as f:
+#     for row in csv.reader(f):
+#         ws.append(row)
+# wb.save(output_file)
+# =============================================================================
 
 
 
@@ -51,3 +53,29 @@ wb.save(output_file)
 #             read_file = pd.read_csv (f)
 #             read_file.to_excel ('File name.xlsx', index = None, header=True)
 # =============================================================================
+
+
+import os
+import win32com.client
+from openpyxl import Workbook
+import csv
+
+wdFormatPDF = 17
+
+for root, dirs, files in os.walk(r'C:\\Users\\austin.schrader\\Desktop\\My_Desktop_Documents\\Python_Tools\\reading_emails_parse_attachment\\Attachments'):
+    for f in files:
+
+        if f.endswith(".csv"):
+            try:
+                output_file = os.path.join(root,f[:-4]+".xlsx")
+                in_file = os.path.join(root, f)
+                wb = Workbook()
+                ws = wb.active
+                with open(in_file, 'r') as f:
+                    for row in csv.reader(f):
+                        ws.append(row)
+                wb.save(output_file)
+                os.remove(in_file)
+                print(in_file)
+            except:
+                print("could not open")

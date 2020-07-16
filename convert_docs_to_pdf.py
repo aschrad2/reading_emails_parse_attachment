@@ -14,18 +14,7 @@ wdFormatPDF = 17
 
 for root, dirs, files in os.walk(r'C:\\Users\\austin.schrader\\Desktop\\My_Desktop_Documents\\Python_Tools\\reading_emails_parse_attachment\\Attachments'):
     for f in files:
-
-        if f.endswith(".csv"):
-            
-            output_file = os.path.join(root,f[:-4]+".xlsx")
-            in_file = os.path.join(root, f)
-            wb = Workbook()
-            ws = wb.active
-            with open(in_file, 'r') as f:
-                for row in csv.reader(f):
-                    ws.append(row)
-            wb.save(output_file)
-        elif  f.endswith(".doc")  or f.endswith(".odt") or f.endswith(".rtf"):
+        if  f.endswith(".doc")  or f.endswith(".odt") or f.endswith(".rtf"):
             try:
                 print(f)
                 in_file=os.path.join(root,f)
