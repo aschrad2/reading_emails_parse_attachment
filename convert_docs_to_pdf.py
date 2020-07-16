@@ -17,13 +17,13 @@ for root, dirs, files in os.walk(r'C:\\Users\\austin.schrader\\Desktop\\My_Deskt
 
         if f.endswith(".csv"):
             
+            output_file = os.path.join(root,f[:-4]+".xlsx")
             in_file = os.path.join(root, f)
             wb = Workbook()
             ws = wb.active
             with open(in_file, 'r') as f:
                 for row in csv.reader(f):
                     ws.append(row)
-            #output_file = os.path.join(root,f[:-4])
             wb.save(output_file)
         elif  f.endswith(".doc")  or f.endswith(".odt") or f.endswith(".rtf"):
             try:
