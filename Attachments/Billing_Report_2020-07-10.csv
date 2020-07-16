@@ -1,0 +1,6 @@
+"Servicer ID","Lender Loan Number","Certificate Number","Borrower Name","Property Address","Original Effective Date","Loan Amount","Billing Date","Invoice Number","Current Principal Balance","Billing Rate","Premium Due","Tax Rate","Tax Amount","Total Amount","MI Paid By"
+16812-0001-0,315232-437,19732096,"Aherne, Brian","199 Pine Grove Drive - Pittsfield, MA 01201-0000",5/29/2008,173900.0,5/29/2020,340064,173900.0,0.17,24.64,0.0,0.0,24.64,Borrower
+16812-0001-0,315232-437,19732096,"Aherne, Brian","199 Pine Grove Drive - Pittsfield, MA 01201-0000",5/29/2008,173900.0,6/29/2020,342274,173900.0,0.17,24.64,0.0,0.0,24.64,Borrower
+16812-0001-0,315232-437,19732096,"Aherne, Brian","199 Pine Grove Drive - Pittsfield, MA 01201-0000",5/29/2008,173900.0,7/29/2020,344454,173900.0,0.17,24.64,0.0,0.0,24.64,Borrower
+16812-0001-0,7602359142,68441331,"Gross, Tracy","1208 Williamsburg Drive - Champaign, IL 61821-0000",9/1/2012,79705.0,6/1/2020,342274,71371.0,0.64,42.51,0.0,0.0,42.51,Borrower
+16812-0001-0,7602359142,68441331,"Gross, Tracy","1208 Williamsburg Drive - Champaign, IL 61821-0000",9/1/2012,79705.0,7/1/2020,344454,71371.0,0.64,42.51,0.0,0.0,42.51,Borrower

@@ -14,7 +14,7 @@ username = "austin.schrader@flanderscapital.com"
 password = "1029Welcome@"
 
 # number of top emails to fetch
-N = 30
+N = 100
 
 # create an IMAP4 class with SSL, use your email provider's IMAP server
 imap = imaplib.IMAP4_SSL("imap.outlook.com")
@@ -71,7 +71,10 @@ for i in range(messages, messages-N, -1):
                             # name the attachment pdf as subject + its current filename
                             filepath = os.path.join("Attachments\\" + filename)
                             # download attachment and save it
-                            open(filepath, "wb").write(part.get_payload(decode=True))
+                            try:
+                                open(filepath, "wb").write(part.get_payload(decode=True))
+                            except:
+                                print("this file already exists")
 
 # close the connection and logout
 imap.close()

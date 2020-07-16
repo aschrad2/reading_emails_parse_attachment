@@ -29,7 +29,6 @@ for root, dirs, files in os.walk(r'C:\\Users\\austin.schrader\\Desktop\\My_Deskt
                 pass
             except:
                 print('could not open')
-                # os.remove(os.path.join(root,f))
         elif f.endswith(".docx") or f.endswith(".dotm") or f.endswith(".docm"):
             try:
                 print(f)
@@ -46,35 +45,49 @@ for root, dirs, files in os.walk(r'C:\\Users\\austin.schrader\\Desktop\\My_Deskt
                 pass
             except:
                 print('could not open')
-                # os.remove(os.path.join(root,f))
-        if f.endswith(".xlsx") or f.endswith(".xls"):
+        elif f.endswith(".xlsx") or f.endswith(".xlsm"):
             try:
                 print(f)
                 in_file=os.path.join(root,f)
+                #give your file name with valid path 
+                output_file = os.path.join(root,f[:-5])
+                #give valid output file name and path
                 app = win32com.client.DispatchEx("Excel.Application")
-                app.Visible = False
                 app.Interactive = False
+                app.Visible = False
+                app.DisplayAlerts = False
                 Workbook = app.Workbooks.Open(in_file)
-                Workbook.SaveAs(os.path.join(0, root,f[:-5]), FileFormat=57)
+                Workbook.ActiveSheet.ExportAsFixedFormat(0, output_file)
                 Workbook.Close()
                 app.Quit()
-                app.Exit()
-                app.Visible = True
-                print ('done')
-                os.remove(os.path.join(root,f))
-                
-# =============================================================================
-#                 in_file=os.path.join(root,f)
-#                 app = win32com.client.DispatchEx("Excel.Application")
-#                 app.Interactive = False
-#                 app.Visible = False
-#                 Workbook = app.Workbooks.Open(in_file)
-#                 Workbook.ActiveSheet.ExportAsFixedFormat(os.path.join(root,f[:-5]), FileFormat=57)
-#                 print(os.path.join(root,f[:-5]))
-#                 Workbook.Close()
-#                 app.Quit()
-# =============================================================================
+                os.remove(os.path.join(root, f))
+                pass
             except:
                 print('could not open')
+        elif f.endswith(".xls"):
+            try:
+                print(f)
+                in_file=os.path.join(root,f)
+                #give your file name with valid path 
+                output_file = os.path.join(root,f[:-4])
+                #give valid output file name and path
+                app = win32com.client.DispatchEx("Excel.Application")
+                app.Interactive = False
+                app.Visible = False
+                app.DisplayAlerts = False
+                Workbook = app.Workbooks.Open(in_file)
+                Workbook.ActiveSheet.ExportAsFixedFormat(0, output_file)
+                Workbook.Close()
+                app.Quit()
+                os.remove(os.path.join(root, f))
+                pass
+            except:
+                print('could not open')
+        elif f.endswith("csv"):
+            import pypandoc
+            
+            output = pypandoc.convert_file('somefile.csv', 'pdf', outputfile="somefile.pdf")
+            assert output == ""
+            
         else:
             pass
